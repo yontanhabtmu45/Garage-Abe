@@ -6,12 +6,18 @@ function AddVichelForm() {
       <div className="auto-container">
         <div className="contact-title">
           <h2>Add a new Order</h2>
+          <div className="text mr-5">
+            Bring to the table win-win survival strategies to ensure proactive
+            domination. At the end of the day, going forward, a new normal that
+            has evolved from generation X is on the runway heading towards a
+            streamlined cloud solution.
+          </div>
         </div>
         <div className="row clearfix">
           <div className="form-column col-lg-7">
             <div className="inner-column">
               <div className="contact-form">
-                <form >
+                <form>
                   <div className="row clearfix">
                     <div className="form-group col-md-12">
                       {/* {serverError && (

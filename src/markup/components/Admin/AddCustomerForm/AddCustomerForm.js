@@ -1,73 +1,59 @@
-import React, { useState } from "react";
-// import employee.service.js
-import employeeService from "../../../../services/employee.service";
+import React from "react";
+import customerService from "../../../../services/customer.service";
 
-function AddEmployeeForm(props) {
-  const [employee_email, setEmail] = useState("");
-  const [employee_first_name, setFirstName] = useState("");
-  const [employee_last_name, setLastName] = useState("");
-  const [employee_phone, setPhoneNumber] = useState("");
-  const [employee_password, setPassword] = useState("");
-  const [active_employee, setActive_employee] = useState(1);
-  const [company_role_id, setCompany_role_id] = useState(1);
+function AddCustomerForm(props) {
+  const [customer_email, setEmail] = React.useState("");
+  const [customer_first_name, setFirstName] = React.useState("");
+  const [customer_last_name, setLastName] = React.useState("");
+  const [customer_phone, setPhoneNumber] = React.useState("");
+  const [active_customer, setActive_customer] = React.useState(1);
+  
   // Errors
-  const [emailError, setEmailError] = useState("");
-  const [firstNameRequired, setFirstNameRequired] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [serverError, setServerError] = useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [firstNameRequired, setFirstNameRequired] = React.useState("");
+  const [success, setSuccess] = React.useState(false);
+  const [serverError, setServerError] = React.useState("");
 
   const handleSubmit = (e) => {
-    // Prevent the default behavior of the form
     e.preventDefault();
     // Handle client side validations
     let valid = true; // Flag
-    // First name is required
-    if (!employee_first_name) {
+    if (customer_first_name === "") {
       setFirstNameRequired("First name is required");
       valid = false;
     } else {
       setFirstNameRequired("");
     }
     // Email is required
-    if (!employee_email) {
+    if (customer_email === "") {
       setEmailError("Email is required");
       valid = false;
-    } else if (!employee_email.includes("@")) {
+    } else if (!customer_email.includes("@")) {
       setEmailError("Invalid email format");
+      valid = false;
     } else {
       const regex = /^\S+@\S+\.\S+$/;
-      if (!regex.test(employee_email)) {
+      if (!regex.test(customer_email)) {
         setEmailError("Invalid email format");
         valid = false;
       } else {
         setEmailError("");
       }
     }
-    // Password has to be at least 6 characters long
-    if (!employee_password || employee_password.length < 6) {
-      setPasswordError("Password must be at least 6 characters long");
-      valid = false;
-    } else {
-      setPasswordError("");
-    }
-    // If the form is not valid, do not submit
+    // if the form is not valid, do not submit
     if (!valid) {
       return;
     }
     const formData = {
-      employee_email,
-      employee_first_name,
-      employee_last_name,
-      employee_phone,
-      employee_password,
-      active_employee,
-      company_role_id,
+      customer_email,
+      customer_first_name,
+      customer_last_name,
+      customer_phone,
+      active_customer,
     };
-
-    // Pass the form data to the service
-    const newEmployee = employeeService.createEmployee(formData);
-    newEmployee
+    // pass the form data to the service
+    const newCustomer = customerService.createCustomer(formData);
+    newCustomer
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
@@ -82,7 +68,7 @@ function AddEmployeeForm(props) {
           // For now, just redirect to the home page
           setTimeout(() => {
             // window.location.href = '/admin/employees';
-            window.location.href = "/admin/employees"; // Redirect to the employees page
+            window.location.href = "/admin/customers"; // Redirect to the employees page
           }, 2000);
         }
       })
@@ -110,88 +96,68 @@ function AddEmployeeForm(props) {
               <div className="contact-form">
                 <form onSubmit={handleSubmit}>
                   <div className="row clearfix">
-                    <div className="form-group col-md-12">
-                      {serverError && (
-                        <div className="validation-error" role="alert">
-                          {serverError}
-                        </div>
-                      )}
-                      <input
-                        type="email"
-                        name="employee_email"
-                        value={employee_email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        placeholder="Customer email"
-                      />
-                      {emailError && (
-                        <div className="validation-error" role="alert">
-                          {emailError}
-                        </div>
-                      )}
-                    </div>
-                    <div className="form-group col-md-12">
+                    <div className="col-md-12 col-sm-12 form-group">
                       <input
                         type="text"
-                        name="employee_first_name"
-                        value={employee_first_name}
-                        onChange={(event) => setFirstName(event.target.value)}
-                        placeholder="Customer first name"
+                        name="customer_first_name"
+                        placeholder="First Name"
+                        value={customer_first_name}
+                        onChange={(e) => setFirstName(e.target.value)}
                       />
                       {firstNameRequired && (
-                        <div className="validation-error" role="alert">
-                          {firstNameRequired}
-                        </div>
+                        <span className="error">{firstNameRequired}</span>
                       )}
                     </div>
-
-                    <div className="form-group col-md-12">
+                    <div className="col-md-12 col-sm-12 form-group">
                       <input
                         type="text"
-                        name="employee_last_name"
-                        value={employee_last_name}
-                        onChange={(event) => setLastName(event.target.value)}
-                        placeholder="Customer last name"
-                        required
+                        name="customer_last_name"
+                        placeholder="Last Name"
+                        value={customer_last_name}
+                        onChange={(e) => setLastName(e.target.value)}
                       />
                     </div>
-
-                    <div className="form-group col-md-12">
+                    <div className="col-md-12 col-sm-12 form-group">
+                      <input
+                        type="email"
+                        name="customer_email"
+                        placeholder="Email"
+                        value={customer_email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      {emailError && <span className="error">{emailError}</span>}
+                    </div>
+                    <div className="col-md-12 col-sm-12 form-group">
                       <input
                         type="text"
-                        name="employee_phone"
-                        value={employee_phone}
-                        onChange={(event) => setPhoneNumber(event.target.value)}
-                        placeholder="Customer phone (555-555-5555)"
-                        required
+                        name="customer_phone"
+                        placeholder="Phone Number (5555-555-555)"
+                        value={customer_phone}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                       />
                     </div>
-
-                    
-                    <div className="form-group col-md-12">
-                      <input
-                        type="password"
-                        name="employee_password"
-                        value={employee_password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        placeholder="Customer password"
-                      />
-                      {passwordError && (
-                        <div className="validation-error" role="alert">
-                          {passwordError}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="form-group col-md-12">
-                      <button
-                        className="theme-btn btn-style-one"
-                        type="submit"
-                        data-loading-text="Please wait..."
-                      >
-                        <span>Add Customer</span>
-                      </button>
+                    <div className="col-md-6 col-sm-12 form-group">
+                      <label>
+                          <input
+                          type="checkbox"
+                          checked={active_customer === 1}
+                          onChange={(e) =>
+                            setActive_customer(e.target.checked ? 1 : 0)
+                          }
+                        />
+                        Active Customer
+                      </label>
                     </div>
                   </div>
+                  {serverError && (
+                    <span className="error">{serverError}</span>
+                  )}
+                  {success && (
+                    <span className="success">Customer added successfully!</span>
+                  )}
+                  <button type="submit" className="theme-btn btn-style-one">
+                    Add Customer
+                  </button>
                 </form>
               </div>
             </div>
@@ -202,4 +168,4 @@ function AddEmployeeForm(props) {
   );
 }
 
-export default AddEmployeeForm;
+export default AddCustomerForm;
