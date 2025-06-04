@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Add this import
 
 function Footer(props) {
   return (
@@ -59,11 +60,10 @@ function Footer(props) {
                       <h4 className="widget_title">Usefull Links</h4>
                       <div className="widget-content">
                         <ul className="list">
-                          <li><a href="index.html">Home</a></li>
-                          <li><a href="about.html">About Us</a></li>
-                          <li><a href="#">Appointment</a></li>
-                          <li><a href="testimonial.html">Testimonials</a></li>
-                          <li><a href="contact.html">Contact Us</a></li>
+                          <li><Link to="/">Home</Link></li>
+                          <li><Link to="/about">About Us</Link></li>
+                          <li><Link to="#">Appointment</Link></li>
+                          <li><Link to="/contact">Contact Us</Link></li>
                         </ul>
                       </div>
                     </div>
@@ -73,11 +73,11 @@ function Footer(props) {
                       <h4 className="widget_title">Our Services</h4>
                       <div className="widget-content">
                         <ul className="list">
-                          <li><a href="#">Performance Upgrade</a></li>
-                          <li><a href="#">Transmission Service</a></li>
-                          <li><a href="#">Break Repair & Service</a></li>
-                          <li><a href="#">Engine Service & Repair</a></li>
-                          <li><a href="#">Trye & Wheels</a></li>
+                          <li><Link to="#">Performance Upgrade</Link></li>
+                          <li><Link to="#">Transmission Service</Link></li>
+                          <li><Link to="#">Break Repair & Service</Link></li>
+                          <li><Link to="#">Engine Service & Repair</Link></li>
+                          <li><Link to="#">Trye & Wheels</Link></li>
                         </ul>
                       </div>
                     </div>
