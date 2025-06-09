@@ -6,6 +6,17 @@
   color: #fff;
 }
 
+/* mobile menu */
+.mobile-menu {
+  display: none;
+}
+.mobile-menu.open {
+  display: block;
+}
+body.mobile-menu-visible {
+  overflow: hidden;
+}
+
 /* Placeholder style */
 input::placeholder, textarea::placeholder {
   font-weight: 400;
@@ -242,10 +253,10 @@ input:disabled {
   background: #ffffff;
   color: #000000;
   border: 1px solid #dddddd;
-  transition: all 500ms ease;
   -webkit-transition: all 500ms ease;
   -ms-transition: all 500ms ease;
   -o-transition: all 500ms ease;
+  transition: all 500ms ease;
 }
 .single-order .service-block-one h2 {
   margin-bottom: 20px;
