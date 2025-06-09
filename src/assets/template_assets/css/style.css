@@ -611,7 +611,7 @@ img {
 .main-header .header-upper .logo-box .logo {
     position: relative;
     display: block;
-    padding: 25px 0px;
+    /* padding: 25px 0px; */
 }
 
 .main-header .header-upper .right-column {

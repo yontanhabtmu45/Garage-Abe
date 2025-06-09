@@ -14,6 +14,7 @@
   display: block;
 }
 body.mobile-menu-visible {
+  background-image: url('../../../public/custom/logo.png');
   overflow: hidden;
 }
 
